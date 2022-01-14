@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Animated, Keyboard, StyleSheet } from 'react-native';
+import { Animated, Keyboard, StyleSheet, I18nManager } from 'react-native';
 import ViewPager, {
   PageScrollStateChangedNativeEvent,
 } from 'react-native-pager-view';
@@ -123,7 +123,12 @@ export default function PagerViewAdapter<T extends Route>({
       <AnimatedViewPager
         {...rest}
         ref={pagerRef}
-        style={[styles.container, style]}
+        layoutDirection="ltr"
+        style={[
+          styles.container,
+          style,
+          { transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }] },
+        ]}
         initialPage={index}
         keyboardDismissMode={
           keyboardDismissMode === 'auto' ? 'on-drag' : keyboardDismissMode
